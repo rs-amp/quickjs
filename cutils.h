@@ -42,7 +42,7 @@
 #include <malloc/malloc.h>
 #elif defined(__ANDROID__)
 #include <dlmalloc.h>
-#elif defined(__linux__) || defined(__CYGWIN__)
+#elif defined(__linux__) || defined(__CYGWIN__) || defined(EMSCRIPTEN)
 #include <malloc.h>
 #elif defined(__FreeBSD__)
 #include <malloc_np.h>
@@ -433,7 +433,7 @@ static inline size_t js__malloc_usable_size(const void *ptr)
     return _msize((void *)ptr);
 #elif defined(__ANDROID__)
     return dlmalloc_usable_size((void *)ptr);
-#elif defined(__linux__) || defined(__FreeBSD__)
+#elif defined(__linux__) || defined(__FreeBSD__) || defined(EMSCRIPTEN)
     return malloc_usable_size((void *)ptr);
 #else
     return 0;
